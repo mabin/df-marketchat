@@ -5,10 +5,12 @@ import {
   ChevronsUpDown,
   GlobeIcon,
   InfoIcon,
+  LogOutIcon,
   MailIcon,
   Settings2Icon,
   SettingsIcon,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import {
@@ -58,6 +60,17 @@ export function WorkspaceNavMenu() {
   const [mounted, setMounted] = useState(false);
   const { open: isSidebarOpen } = useSidebar();
   const { t } = useI18n();
+  const router = useRouter();
+
+  async function handleLogout() {
+    try {
+      await fetch("/api/logout", { method: "POST" });
+    } catch {
+      // ignore — even if the request fails we still send the user to /login
+    }
+    router.push("/login");
+    router.refresh();
+  }
 
   useEffect(() => {
     setMounted(true);
@@ -145,6 +158,11 @@ export function WorkspaceNavMenu() {
                 >
                   <InfoIcon />
                   {t.workspace.about}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout}>
+                  <LogOutIcon />
+                  退出登录
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
