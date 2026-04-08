@@ -15,5 +15,9 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/workspace/:path*"],
+  // Protect everything except login page, login/logout/auth API endpoints,
+  // Next.js internals, and static assets.
+  matcher: [
+    "/((?!login|api/login|api/logout|api/auth|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|woff|woff2|ttf|otf)$).*)",
+  ],
 };
