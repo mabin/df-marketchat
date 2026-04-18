@@ -22,6 +22,7 @@ import { TodoList } from "@/components/workspace/todo-list";
 import { TokenUsageIndicator } from "@/components/workspace/token-usage-indicator";
 import { Welcome } from "@/components/workspace/welcome";
 import { useI18n } from "@/core/i18n/hooks";
+import { useModels } from "@/core/models/hooks";
 import { useNotification } from "@/core/notification/hooks";
 import { useThreadSettings } from "@/core/settings";
 import { useThreadStream } from "@/core/threads/hooks";
@@ -32,9 +33,11 @@ import { cn } from "@/lib/utils";
 export default function ChatPage() {
   const { t } = useI18n();
   const [showFollowups, setShowFollowups] = useState(false);
-  const { threadId, isNewThread, setIsNewThread, isMock } = useThreadChat();
+  const { threadId, setThreadId, isNewThread, setIsNewThread, isMock } =
+    useThreadChat();
   const [settings, setSettings] = useThreadSettings(threadId);
   const [mounted, setMounted] = useState(false);
+  const { tokenUsageEnabled } = useModels();
   useSpecificChatMode();
 
   useEffect(() => {
@@ -47,10 +50,11 @@ export default function ChatPage() {
     threadId: isNewThread ? undefined : threadId,
     context: settings.context,
     isMock,
-    onStart: () => {
+    onStart: (createdThreadId) => {
+      setThreadId(createdThreadId);
       setIsNewThread(false);
       // ! Important: Never use next.js router for navigation in this case, otherwise it will cause the thread to re-mount and lose all states. Use native history API instead.
-      history.replaceState(null, "", `/workspace/chats/${threadId}`);
+      history.replaceState(null, "", `/workspace/chats/${createdThreadId}`);
     },
     onFinish: (state) => {
       if (document.hidden || !document.hasFocus()) {
@@ -101,7 +105,10 @@ export default function ChatPage() {
               <ThreadTitle threadId={threadId} thread={thread} />
             </div>
             <div className="flex items-center gap-2">
-              <TokenUsageIndicator messages={thread.messages} />
+              <TokenUsageIndicator
+                enabled={tokenUsageEnabled}
+                messages={thread.messages}
+              />
               <ExportTrigger threadId={threadId} />
               <ArtifactTrigger />
             </div>
@@ -113,6 +120,7 @@ export default function ChatPage() {
                 threadId={threadId}
                 thread={thread}
                 paddingBottom={messageListPaddingBottom}
+                tokenUsageEnabled={tokenUsageEnabled}
               />
             </div>
             <div className="absolute right-0 bottom-0 left-0 z-30 flex justify-center px-4">
