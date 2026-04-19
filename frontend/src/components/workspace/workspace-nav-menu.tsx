@@ -111,7 +111,7 @@ export function WorkspaceNavMenu() {
                     {t.common.settings}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <a
+                  {/* <a
                     href="https://deerflow.tech/"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -149,8 +149,8 @@ export function WorkspaceNavMenu() {
                     </DropdownMenuItem>
                   </a>
                 </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
+                <DropdownMenuSeparator /> */}
+                {/* <DropdownMenuItem
                   onClick={() => {
                     setSettingsDefaultSection("about");
                     setSettingsOpen(true);
@@ -159,7 +159,7 @@ export function WorkspaceNavMenu() {
                   <InfoIcon />
                   {t.workspace.about}
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator /> */}
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOutIcon />
                   退出登录
