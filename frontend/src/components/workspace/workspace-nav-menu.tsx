@@ -110,8 +110,8 @@ export function WorkspaceNavMenu() {
                     <Settings2Icon />
                     {t.common.settings}
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  {/* <a
+                  {/* <DropdownMenuSeparator />
+                  <a
                     href="https://deerflow.tech/"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -147,9 +147,9 @@ export function WorkspaceNavMenu() {
                       <MailIcon />
                       {t.workspace.contactUs}
                     </DropdownMenuItem>
-                  </a>
+                  </a> */}
                 </DropdownMenuGroup>
-                <DropdownMenuSeparator /> */}
+                <DropdownMenuSeparator />
                 {/* <DropdownMenuItem
                   onClick={() => {
                     setSettingsDefaultSection("about");
