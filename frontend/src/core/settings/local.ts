@@ -6,8 +6,8 @@ export const DEFAULT_LOCAL_SETTINGS: LocalSettings = {
   },
   context: {
     model_name: undefined,
-    mode: undefined,
-    reasoning_effort: undefined,
+    mode: "ultra",
+    reasoning_effort: "high",
   },
 };
 
