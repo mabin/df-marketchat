@@ -245,7 +245,7 @@ tool_search:
 # Executes commands directly on the host machine
 sandbox:
   use: deerflow.sandbox.local:LocalSandboxProvider
-  allow_host_base: true
+  allow_host_bash: true
 
 # Option 2: Container-based AIO Sandbox
 # Executes commands in isolated containers (Docker or Apple Container)
